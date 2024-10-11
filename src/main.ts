@@ -9,7 +9,7 @@ app.style.backgroundImage = `url(${couch})`;
 
 app.innerHTML = `
     <div class="hero-overlay bg-opacity-60"></div>
-    <div class="hero-content text-neutral-content text-center">
+    <div class="hero-content text-white text-center">
       <div class="max-w-md">
         <div class="avatar">
           <div class="w-24 rounded">
