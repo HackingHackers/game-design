@@ -1,8 +1,8 @@
 import { Player, TileType } from "./types";
 
 const DEFAULT_BG = 0xdcdcdc;
-const FOW_BG = 0x393939;
-const MOVABLE_BG = 0x6c6c6c;
+// const FOW_BG = 0x393939;
+// const MOVABLE_BG = 0x6c6c6c;
 
 export const TEAM_COLORS: {
   readonly [key in Player]: {

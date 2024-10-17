@@ -1,4 +1,4 @@
-import { TEAM_COLORS, TILE_GLYPHS } from "./consts";
+import { TEAM_COLORS } from "./consts";
 import type Map from "./map";
 
 export function render(PS: any, map: Map) {
