@@ -11,12 +11,9 @@ const GLYPHS = {
   bold_numbers: 0x1d7ec,
 };
 
-const COLORS = [
-  0x0000ff, 0x027b00, 0xff0000, 0x00007b, 0x7b0000, 0x027b7b, 0x000000,
-  0x7b7b7b,
-];
+const COLORS = [0x0000ff, 0x027b00, 0xff0000, 0x00007b, 0x7b0000, 0x027b7b, 0x000000, 0x7b7b7b];
 
-export function show_difficulty_selection(PS) {
+export function showDifficultySelection(PS) {
   PS.statusText("Select difficulty");
   PS.gridSize(4, 1);
   for (let i = 0; i < 4; i++) {
@@ -24,7 +21,7 @@ export function show_difficulty_selection(PS) {
   }
 }
 
-export function update_status(PS, mines, time) {
+export function updateStatus(PS, mines, time) {
   PS.statusText(`Mines: ${mines}, Time: ${time}s`);
 }
 

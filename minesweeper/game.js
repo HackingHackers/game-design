@@ -1,4 +1,4 @@
-import { start_game, spacerbar, reveal, flag } from "./minesweeper.js";
+import { startGame, spacerbar, reveal, flag } from "./minesweeper.js";
 
 // Global state variables
 var current_bead, counter, time;
@@ -8,7 +8,7 @@ PS.init = function (system, options) {
   // Preload all sounds
   PS.audioLoad("fx_click");
 
-  start_game(PS);
+  startGame(PS);
 };
 
 PS.touch = function (x, y, data, options) {

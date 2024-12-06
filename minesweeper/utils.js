@@ -6,7 +6,7 @@
 
 import { config } from "./minesweeper.js";
 
-export function execute_around(x, y, callback) {
+export function executeAround(x, y, callback) {
   const SHIFTS = [
     // Delta x and y for all 8 surrounding cells
     [-1, -1],
@@ -28,7 +28,8 @@ export function execute_around(x, y, callback) {
   }
 }
 
-export function shuffle(a) {
+export function shuffleArray(a) {
+  // Fisher-Yates shuffle
   for (let i = a.length - 1; i >= 0; i--) {
     const j = Math.floor(Math.random() * (i + 1));
     [a[i], a[j]] = [a[j], a[i]];

@@ -5,7 +5,7 @@
  */
 
 import * as ui from "./ui.js";
-import { execute_around, shuffle } from "./utils.js";
+import { executeAround, shuffleArray } from "./utils.js";
 
 export const config = {
   x: 0,
@@ -18,15 +18,15 @@ export const config = {
  *
  * Returns the mine count.
  */
-export function start_game(PS) {
-  ui.show_difficulty_selection(PS);
-  PS.release = create_difficulty_selection_listener(PS);
+export function startGame(PS) {
+  ui.showDifficultySelection(PS);
+  PS.release = createDifficultySelectionListener(PS);
 }
 
 /**
  * Returns a function which can be bound to the release event.
  */
-function create_difficulty_selection_listener(PS) {
+function createDifficultySelectionListener(PS) {
   const PRESETS = [
     { x: 9, y: 9, mines: 10 }, // Beginner
     { x: 16, y: 16, mines: 40 }, // Intermediate
@@ -39,25 +39,23 @@ function create_difficulty_selection_listener(PS) {
     } else {
       // Custom difficulty
       PS.statusInput("X, Y, Mines:", (input) => {
-        [config.x, config.y, config.mines] = input
-          .split(",")
-          .map((n) => parseInt(n));
+        [config.x, config.y, config.mines] = input.split(",").map((n) => parseInt(n));
       });
     }
-    populate_grid(PS);
-    PS.release = create_game_listener(PS);
+    populateGrid(PS);
+    PS.release = createGameListener(PS);
   };
 }
 
 /**
  * Returns a function which can be bound to the release event.
  */
-function create_game_listener(PS) {
+function createGameListener(PS) {
   let first_click = true;
   return (x, y, data, options) => {
     if (first_click) {
       while (data.count !== 0 || data.mine) {
-        populate_grid(PS);
+        populateGrid(PS);
         data = PS.data(x, y);
       }
       first_click = false;
@@ -69,7 +67,7 @@ function create_game_listener(PS) {
 /**
  * Returns the mine count.
  */
-function populate_grid(PS) {
+function populateGrid(PS) {
   ui.reset(PS, config.x, config.y);
 
   // Initial data for each cell
@@ -82,7 +80,7 @@ function populate_grid(PS) {
 
   // Create a randomized array with the specified mine count and empty spaces
   const a = new Array(config.x * config.y).fill(true, 0, config.mines);
-  shuffle(a);
+  shuffleArray(a);
 
   // Assign the grid to the field
   for (let i = 0; i < config.x; i++) {
@@ -91,7 +89,7 @@ function populate_grid(PS) {
         PS.data(i, j).mine = true;
 
         // Increment the count of all surrounding cells
-        execute_around(i, j, (x, y) => {
+        executeAround(i, j, (x, y) => {
           PS.data(x, y).count++;
         });
       }
@@ -109,7 +107,7 @@ export function spacerbar(PS, x, y, data) {
 
   // Check if flag count matches the count of surrounding mines
   let flag_count = 0;
-  execute_around(x, y, (new_x, new_y) => {
+  executeAround(x, y, (new_x, new_y) => {
     if (PS.data(new_x, new_y).flagged) {
       flag_count++;
     }
@@ -119,7 +117,7 @@ export function spacerbar(PS, x, y, data) {
   }
 
   // Reveal all surrounding unflagged squares
-  execute_around(x, y, (new_x, new_y) => {
+  executeAround(x, y, (new_x, new_y) => {
     const data = PS.data(new_x, new_y);
     if (!data.flagged) {
       reveal(PS, new_x, new_y, data);
@@ -162,7 +160,7 @@ function bfs(PS, x, y) {
       continue;
     }
 
-    execute_around(x, y, (new_x, new_y) => {
+    executeAround(x, y, (new_x, new_y) => {
       const new_data = PS.data(new_x, new_y);
       if (!new_data.revealed && !new_data.flagged) {
         queue.push([new_x, new_y]);
