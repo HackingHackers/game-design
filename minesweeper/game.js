@@ -1,14 +1,14 @@
-import { startGame, spacerbar, reveal, flag } from "./minesweeper.js";
+import { spacerbar, reveal, flag } from "./minesweeper.js";
 
 // Global state variables
-var current_bead, counter, time;
-var flag_toggle = false;
+let current_bead, counter, time;
 
-PS.init = function (system, options) {
+PS.init = () => {
   // Preload all sounds
   PS.audioLoad("fx_click");
 
-  startGame(PS);
+  ui.showDifficultySelection(PS);
+  PS.release = createDifficultySelectionListener(PS);
 };
 
 PS.touch = function (x, y, data, options) {
@@ -20,7 +20,7 @@ PS.touch = function (x, y, data, options) {
 
 // PS.release = function (x, y, data, options) {};
 
-PS.enter = function (x, y, data, options) {
+PS.enter = (x, y, data, options) => {
   current_bead = { x, y, data };
 
   if (options.touching && !data.flagged) {
@@ -34,7 +34,7 @@ PS.exit = function (x, y, data, options) {
   }
 };
 
-PS.exitGrid = function (options) {
+PS.exitGrid = () => {
   current_bead = null;
 };
 

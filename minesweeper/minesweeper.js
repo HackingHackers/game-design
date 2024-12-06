@@ -14,16 +14,6 @@ export const config = {
 };
 
 /**
- * Resets the game, starting from the difficulty selection.
- *
- * Returns the mine count.
- */
-export function startGame(PS) {
-  ui.showDifficultySelection(PS);
-  PS.release = createDifficultySelectionListener(PS);
-}
-
-/**
  * Returns a function which can be bound to the release event.
  */
 function createDifficultySelectionListener(PS) {
